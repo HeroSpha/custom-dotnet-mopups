@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<pages:PopupPage
+    x:Class="CustomPopupsWithMopus.Views.UserDetailPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="using:CustomPopupsWithMopus.Models"
+    xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:pages="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:viewModels="using:CustomPopupsWithMopus.ViewModels"
+    x:DataType="viewModels:UserDetailPopupViewModel"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="False"
+    HasKeyboardOffset="False">
+    <pages:PopupPage.Animation>
+        <mopupsanim:ScaleAnimation
+            DurationIn="700"
+            EasingIn="BounceOut"
+            PositionIn="Bottom"
+            PositionOut="Center"
+            ScaleIn="1"
+            ScaleOut="0.7" />
+    </pages:PopupPage.Animation>
+    <VerticalStackLayout>
+        <Grid
+            Margin="20"
+            Padding="20"
+            BackgroundColor="#ffff"
+            RowDefinitions="*,Auto">
+            <CollectionView
+                ItemsSource="{Binding UserDetails}"
+                SelectedItem="{Binding UserDetail}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:UserDetail">
+                        <VerticalStackLayout Margin="0,5">
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Surname}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Grid.Row="1"
+                Margin="0,10"
+                Command="{Binding SubmitCommand}"
+                Text="Submit" />
+        </Grid>
+    </VerticalStackLayout>
+</pages:PopupPage>
